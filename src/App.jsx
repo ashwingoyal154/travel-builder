@@ -4,6 +4,7 @@ import LoadingOverlay from './components/LoadingOverlay.jsx'
 import ItineraryResult from './components/ItineraryResult.jsx'
 import ErrorBoundary from './components/ErrorBoundary.jsx'
 import Toast from './components/Toast.jsx'
+import PipelineDiagram from './components/PipelineDiagram.jsx'
 import { useItinerary } from './hooks/useItinerary.js'
 
 function Footer() {
@@ -158,9 +159,20 @@ export default function App() {
   const [itinerary, setItinerary] = useState(null)
   const [errorMsg, setErrorMsg] = useState('')
   const [showToast, setShowToast] = useState(false)
+  const [route, setRoute] = useState(
+    typeof window !== 'undefined' ? window.location.hash : '',
+  )
 
   const resultRef = useRef(null)
   const { submit } = useItinerary()
+
+  useEffect(() => {
+    const onHash = () => setRoute(window.location.hash)
+    window.addEventListener('hashchange', onHash)
+    return () => window.removeEventListener('hashchange', onHash)
+  }, [])
+
+  if (route === '#pipeline') return <PipelineDiagram />
 
   // Scroll to results when they arrive
   useEffect(() => {

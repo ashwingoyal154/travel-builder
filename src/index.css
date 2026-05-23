@@ -160,3 +160,138 @@ details summary::-webkit-details-marker {
   opacity: 0;
   transition: opacity 0.5s ease;
 }
+
+/* ─── Hero: shimmer gradient on the accent word ─── */
+@keyframes goldShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.hero-shimmer {
+  background: linear-gradient(
+    90deg,
+    #b8894a 0%,
+    #d4a853 25%,
+    #f5d98f 50%,
+    #e8c97a 60%,
+    #d4a853 75%,
+    #b8894a 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: goldShimmer 4s linear infinite;
+  filter: drop-shadow(0 0 24px rgba(232, 201, 122, 0.45));
+}
+
+/* ─── Hero: animated badge / pill ─── */
+@keyframes badgePulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(212, 168, 83, 0.35) inset,
+      0 0 24px rgba(212, 168, 83, 0.25),
+      0 0 0 0 rgba(212, 168, 83, 0.4);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(232, 201, 122, 0.55) inset,
+      0 0 36px rgba(232, 201, 122, 0.45),
+      0 0 0 6px rgba(212, 168, 83, 0);
+  }
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 168, 83, 0.12) 0%,
+    rgba(232, 201, 122, 0.06) 50%,
+    rgba(212, 168, 83, 0.12) 100%
+  );
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: badgePulse 3.2s ease-in-out infinite;
+}
+
+.hero-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #e8c97a;
+  box-shadow: 0 0 10px #e8c97a, 0 0 20px rgba(232, 201, 122, 0.6);
+  animation: badgePulse 1.6s ease-in-out infinite;
+}
+
+/* ─── Hero: twinkling sparkles ─── */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.8) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1.15) rotate(180deg); }
+}
+
+.hero-sparkle {
+  position: absolute;
+  pointer-events: none;
+  color: #e8c97a;
+  filter: drop-shadow(0 0 6px rgba(232, 201, 122, 0.85));
+  animation: twinkle 3.5s ease-in-out infinite;
+}
+
+/* ─── Hero: rotating aurora glow behind headline ─── */
+@keyframes auroraSpin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.hero-aurora {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 900px;
+  height: 900px;
+  max-width: 120vw;
+  max-height: 120vw;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(212, 168, 83, 0.18), transparent 45%),
+    radial-gradient(circle at 70% 60%, rgba(30, 58, 95, 0.45), transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(232, 201, 122, 0.1), transparent 55%);
+  filter: blur(60px);
+  animation: auroraSpin 28s linear infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ─── Hero: feature chips ─── */
+.hero-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(212, 168, 83, 0.18);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: rgba(245, 240, 232, 0.78);
+  transition: all 0.3s ease;
+}
+
+.hero-chip:hover {
+  background: rgba(212, 168, 83, 0.08);
+  border-color: rgba(212, 168, 83, 0.4);
+  color: #f5f0e8;
+  transform: translateY(-1px);
+}
+
+.hero-chip svg {
+  color: #d4a853;
+}
