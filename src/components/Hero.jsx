@@ -1,19 +1,5 @@
 import QueryInterface from './QueryInterface.jsx'
-
-const WORLD_MAP_PATHS = [
-  // North America
-  'M 80 80 L 180 60 L 220 90 L 245 135 L 215 185 L 175 230 L 145 250 L 100 205 L 68 155 Z',
-  // South America
-  'M 155 265 L 200 252 L 225 280 L 235 345 L 215 405 L 185 428 L 158 396 L 148 340 L 152 295 Z',
-  // Europe
-  'M 425 58 L 515 52 L 538 78 L 528 125 L 496 145 L 448 133 L 418 102 Z',
-  // Africa
-  'M 438 162 L 512 152 L 542 182 L 554 254 L 532 336 L 490 375 L 458 343 L 437 272 L 428 202 Z',
-  // Asia
-  'M 540 48 L 705 38 L 808 68 L 835 122 L 805 175 L 722 185 L 640 165 L 568 142 L 538 100 Z',
-  // Australia
-  'M 718 282 L 802 270 L 845 302 L 843 364 L 800 384 L 738 372 L 706 332 Z',
-]
+import { WORLD_MAP_PATHS } from '../data/promptLibrary.js'
 
 const SPARKLES = [
   { top: '18%', left: '12%', size: 14, delay: '0s' },

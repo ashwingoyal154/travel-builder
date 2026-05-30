@@ -1,14 +1,5 @@
 import { useRef } from 'react'
-import QueryChip from './QueryChip.jsx'
-
-const EXAMPLE_QUERIES = [
-  'WW2 historical sites across Europe',
-  'Ancient Silk Road through Central Asia',
-  'Cherry blossom season in Japan',
-  "Hemingway's literary trails",
-  'Viking heritage across Scandinavia',
-  'Jazz age New Orleans immersion',
-]
+import DestinationExplorer from './DestinationExplorer.jsx'
 
 export default function QueryInterface({ query, setQuery, onSubmit, isLoading }) {
   const textareaRef = useRef(null)
@@ -38,19 +29,7 @@ export default function QueryInterface({ query, setQuery, onSubmit, isLoading })
         gap: '16px',
       }}
     >
-      {/* Example query chips */}
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          gap: '8px',
-          justifyContent: 'center',
-        }}
-      >
-        {EXAMPLE_QUERIES.map(label => (
-          <QueryChip key={label} label={label} onClick={() => handleChipClick(label)} />
-        ))}
-      </div>
+      <DestinationExplorer onPromptSelect={handleChipClick} />
 
       {/* Textarea */}
       <div style={{ position: 'relative' }}>
