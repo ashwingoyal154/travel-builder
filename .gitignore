@@ -5,3 +5,8 @@ dist/
 
 # Contains personal email, Google Docs URL, and n8n instance details
 Travel Planning Multi-Agent System.json
+
+# Runtime audit log written by the force-push guardrail hook
+.claude/logs/
+
+.vercel

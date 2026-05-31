@@ -1,10 +1,15 @@
 // Production proxy for the n8n webhook.
 //
-// In dev, vite.config.js proxies /api/n8n → the n8n origin. That proxy does NOT
-// exist in production (Vercel serves static files), so this Serverless Function
-// reproduces it: it forwards POST /api/n8n/<path> to <n8n-origin>/<path>.
+// In dev, vite.config.js proxies /api/n8n -> the n8n origin. That proxy does NOT
+// exist in production, so this Serverless Function reproduces it for the only
+// route the client actually calls: POST /api/n8n/webhook/<id>.
 //
-// Configure the upstream host with a Vercel env var (Project → Settings → Env):
+// Why this exact path (not a catch-all): Vercel's zero-config functions for a
+// Vite project deploy `[...catchAll]` as a SINGLE-segment dynamic route, so a
+// 2-segment path like /api/n8n/webhook/<id> 404s. A single dynamic segment
+// ([id]) routes reliably, and the n8n webhook path is always /webhook/<id>.
+//
+// Configure the upstream host with a Vercel env var (Project -> Settings -> Env):
 //   • N8N_ORIGIN            e.g. https://my-n8n.app.n8n.cloud   (preferred), or
 //   • VITE_N8N_WEBHOOK_URL  the full webhook URL — origin is derived from it.
 // VITE_N8N_WEBHOOK_URL must be set anyway (the client derives the request path
@@ -36,9 +41,10 @@ export default async function handler(req, res) {
       .json({ error: 'n8n origin not configured — set N8N_ORIGIN or VITE_N8N_WEBHOOK_URL in Vercel.' })
   }
 
-  // Strip the /api/n8n prefix (mirrors the dev proxy rewrite) and forward the rest.
-  const upstreamPath = req.url.replace(/^\/api\/n8n/, '')
-  const target = `${origin}${upstreamPath}`
+  const { id } = req.query
+  if (!id) return res.status(400).json({ error: 'Missing webhook id' })
+
+  const target = `${origin}/webhook/${id}`
 
   try {
     const body = typeof req.body === 'string' ? req.body : JSON.stringify(req.body ?? {})
